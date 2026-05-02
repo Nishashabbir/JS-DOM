@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- a function which will create a product page using a list of product info dynamically -->
+
+   <div id="app"></div>
+
+   
+
+   <script>
+
+// product description 
+
+let products=[
+    {
+ title : "iphone17 pro max " ,
+price  : 300000
+    },
+    {
+ title : "Galaxy A03 " ,
+price  : 20000
+    },
+    {
+title : " Redmi A2+ " ,
+price  : 10000
+    },
+    {
+title : " Redmi A2+ " ,
+price  : 10000
+    }
+
+    // you have to manually do this small thing to keep adding the products here only 
+  
+
+
+]
+
+
+
+function productHTML(product){
+    
+  return  `
+   <div style="border: solid 2px red ;padding:10px; margin:5px ">
+    <h1>${product.title}</h1>
+    <p>${product.price} </p>
+   </div>
+
+  `
+}
+
+// now we don't have one product , we have multiple in a list , so use another function to loop on them all 
+
+// we want to send each item in the list , first convert it into html card and then store every card in output and then append it to the original container app div 
+
+function render(list){
+     let output=" ";
+    for (let item of list) {
+       output+= productHTML(item)
+    }
+    document.getElementById("app").innerHTML=output
+}
+
+
+render(products) 
+
+// now you can keep adding different products in just the list , everything else will be managed 
+
+
+   </script>
+
+    
+</body>
+</html>

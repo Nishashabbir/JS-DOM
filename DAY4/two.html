@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        .btn{
+            border: solid 1px gray;
+            padding: 5px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 id="output">click the button </h1>
+
+    <div class="container">
+        <button class="btn">Mango</button>
+        <button class="btn">Orange</button>
+        <button class="btn">Apple</button>
+    </div>
+    
+
+   <!-- the change is here we are applying accroding to the test but each color for different buttons not dynamically  -->
+    <!-- script for EVEnt listener for each button -->
+    <!-- we have to select all the buttons first and then we will apply event listener on each button -->
+    <script>
+    const output=document.getElementById("output")
+    const buttons=document.querySelectorAll(".btn")
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click" , function (e) {
+
+           const text=e.target.innerText;
+           buttons.forEach(b => {
+            // it will first reset and then apply on the target one only 
+            b.style.background=""
+            
+           });
+
+           if (text=="Mango"){
+            e.target.style.background ="yellow"
+            
+           }
+          else if (text=="Orange"){
+            e.target.style.background="orange"
+            e.target.style.borderRadius="40%"
+          
+           }
+          else if (text=="Apple"){
+            e.target.style.background="red"
+           }
+           
+
+            output.innerText="You have clicked : "  + e.target.innerText;
+
+            console.log("Event : "  , e)
+            
+        })
+        
+    });
+
+
+
+</script>
+
+</body>
+</html>

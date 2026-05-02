@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+</head>
+<body>
+    <!-- The Simplest Event (Inline Method)
+
+HTML can directly trigger JavaScript. -->
+
+<button onclick="alert('Button clicked!')">
+Click Me
+</button>
+
+<!-- using DOM + EVENT  -->
+<button id="btn">Click Me</button>
+<button id="btn2">Click Me</button>
+
+<div class="box" style="padding: 10px; background-color: rgb(210, 207, 207);">Its a box </div>
+
+<input type="text" id="name" placeholder="Enter here : "> 
+
+
+<script>
+let button = document.getElementById("btn");
+
+button.onclick = function() {
+    alert("Why did you click that !");
+}
+
+let bt=document.getElementById("btn2")
+bt.addEventListener("click" , function(){
+    
+    alert("Hello world !")
+    bt.innerHTML="i was clicked "
+    bt.style.borderColor="red"
+    bt.style.padding="12px"
+})
+
+// Mouse Events
+box.addEventListener("mouseover", function(){
+    console.log("Mouse entered");
+});
+
+box.addEventListener("mouseout", function(){
+    console.log("Mouse left");
+});
+
+// Keyboard Events
+document.addEventListener("keydown", function(){
+    console.log("Key pressed");
+});
+
+// You can also detect which key.
+
+document.addEventListener("keydown", function(event){
+    console.log(event.key);
+});
+
+// If user presses A a prints 
+
+let text=document.getElementById("name")
+text.addEventListener("input" , function(e){
+    console.log(e.target.value)
+})
+
+// windows browser events 
+
+
+</script>
+    
+</body>
+</html>

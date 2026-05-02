@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        .task { padding: 10px; margin: 5px; background: #f0f0f0; }
+        .completed { background: #c8e6c9;  }
+        .high-priority { border-left: 4px solid red; }
+        button { margin: 5px; padding: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>My Tasks</h2>
+    <div id="task-container">
+        <div class="task" data-priority="high">Finish report</div>
+        <div class="task" data-priority="low">Buy groceries</div>
+        <div class="task" data-priority="high">Call client</div>
+        <div class="task" data-priority="low">Check emails</div>
+    </div>
+    
+    <button onclick="highlightHighPriority()">Highlight High Priority</button>
+    <button onclick="markAllCompleted()">Mark All Completed</button>
+    <button onclick="addNumbers()">Add Task Numbers</button>
+    <button onclick="resetTasks()">Reset Tasks</button>
+
+    <script>
+        function highlightHighPriority() {
+            document.querySelectorAll('.task').forEach(task => {
+                if (task.dataset.priority === 'high') {
+                    task.classList.add('high-priority');
+                }
+            });
+        }
+function addNumbers() {
+    document.querySelectorAll('.task').forEach((task, index) => {
+        // SIMPLE FIX: First remove any existing number
+        let textWithoutNumber = task.textContent.replace(/^\d+\.\s*/, '');
+//         .replace is a method and What .replace() Does ? 
+// The .replace() method searches for something in a string and replaces it with something else.
+// // e.g 
+// let newText = oldText.replace(whatToFind, whatToReplaceWith);
+        
+        // Then add the new number
+        task.textContent = `${index + 1}. ${textWithoutNumber}`;
+    });
+}
+
+function markAllCompleted() {
+    document.querySelectorAll('.task').forEach(task => {
+        if (!task.classList.contains('completed')) {
+            let originalText = task.dataset.original || task.textContent;
+            
+            if (!task.dataset.original) {
+                task.dataset.original = originalText;
+            }
+            
+            task.textContent = `✓ ${originalText}`;
+            task.classList.add('completed');
+        }
+    });
+}
+
+        function resetTasks() {
+            const tasks = document.querySelectorAll('.task');
+            const originalTexts = ['Finish report', 'Buy groceries', 'Call client', 'Check emails'];
+            
+            tasks.forEach((task, index) => {
+                task.textContent = originalTexts[index];
+                task.classList.remove('completed', 'high-priority');
+            });
+        }
+    </script>
+</body>
+</html>

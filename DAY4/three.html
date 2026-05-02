@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+<h1 id="output">Click the button </h1>
+<div id="container">
+    <button class="btn">apple</button>
+    <button class="btn">Mango</button>
+    <button class="btn">Orange</button>
+</div>
+
+
+
+<script>
+
+const output=document.getElementById("output");
+const container=document.getElementById("container");
+const colors={
+    apple  : "red " , 
+    Mango : "yellow" , 
+    Orange : "orange"
+}
+
+container.addEventListener("click" , function (e) {
+
+
+    if (e.target.classList.contains("btn")){
+        const buttons= document.querySelectorAll(".btn");
+
+      const text=  e.target.innerText ;
+        buttons.forEach(b => {
+            b.style.background="";
+            e.target.style.background= colors[text];
+            
+        });
+
+        output.innerText="you have clicked : " + e.target.innerText
+
+
+    }
+    
+})
+
+
+
+</script>
+
+</body>
+</html>

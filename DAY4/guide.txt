@@ -1,0 +1,218 @@
+Summary of keywords
+Code          	Meaning
+document    	the webpage
+getElementById 	find 1 element
+querySelectorAll	find many elements
+forEach	loop
+addEventListener	wait for event
+click	event type
+function(e)	callback when event happens
+e	event object
+e.target	clicked element
+classList.add/remove	change CSS
+innerText	text inside element
+
+
+function (e)
+This is VERY important.
+e = event object
+It is automatically created by browser
+
+What is e?//////////////////
+
+When you click a button, JS creates an object like:
+
+e = {
+  target: <button>,
+  type: "click",
+  x: 120,
+  y: 300,
+  ...
+}
+
+So:
+
+ e = information about the event
+
+e.target
+e.target
+
+ the element that was clicked
+
+So if you click Mango:
+
+e.target = <button>Mango</button>
+
+
+applying the addEventListener on parent not on the child element will work ???
+
+yes :
+
+Big Idea (what changed?)
+
+Before:
+
+You added a click listener to each button
+
+Now:
+
+You add ONE listener to the container
+It handles clicks for all buttons inside it
+
+ This is called event delegation
+
+ 1. Variables at the top
+const output = document.getElementById("output");
+
+ Same as before
+Grabs the <h2> so we can update text
+
+const container = document.getElementById("container");
+
+ This is NEW
+
+Instead of selecting buttons, we select their parent div
+
+ 2. This object (VERY IMPORTANT)
+const colors = {
+  Apple: "red",
+  Banana: "yellow",
+  Mango: "orange"
+};
+
+ This is a JavaScript object (dictionary)
+
+Same as Python:
+
+colors = {
+  "Apple": "red",
+  "Banana": "yellow",
+  "Mango": "orange"
+}
+Access:
+colors["Apple"]  // "red"
+colors[text]     // dynamic lookup
+ 3. One event listener (core concept)
+container.addEventListener("click", function (e) {
+
+ Instead of attaching to each button, we attach to container
+
+ Wait… how does it know which button was clicked?
+
+Because of:
+
+e.target
+
+ e.target = the actual element clicked
+
+Even though listener is on container.
+
+ This is called: Event Bubbling
+
+When you click a button:
+
+button → container → body → html
+
+ Event travels UP the DOM
+
+So container “hears” the click.
+
+ 4. Important filter (VERY IMPORTANT)
+if (e.target.classList.contains("btn")) {
+
+ “Only run this code if clicked element has class btn”
+
+Why?
+
+Because container also contains other stuff.
+
+Without this check:
+ clicks anywhere inside container would trigger logic
+
+ 5. Reset all buttons
+const buttons = document.querySelectorAll(".btn");
+
+ select all buttons again
+
+buttons.forEach(b => {
+  b.style.background = "";
+});
+
+ remove background color from all
+
+ resets UI
+
+ 6. Get clicked text
+const text = e.target.innerText;
+
+If you click Mango:
+
+text = "Mango"
+ 7. Apply color dynamically
+e.target.style.background = colors[text];
+This is the magic line
+
+Break it:
+
+text = "Mango"
+colors[text] = colors["Mango"]
+result = "orange"
+
+So:
+
+button.style.background = "orange"
+ 8. Update output
+output.innerText = "You clicked: " + text;
+
+ same as before
+
+ 9. Debug
+console.log("Clicked:", text);
+ Execution Flow (IMPORTANT)
+Step 1: Setup
+
+JS runs:
+
+const output = ...
+const container = ...
+container.addEventListener(...)
+
+ Done once
+
+Step 2: Wait
+
+Nothing happens until click
+
+Step 3: Click happens
+
+If user clicks Mango:
+
+e.target = <button>Mango</button>
+
+Then:
+
+Check class → passes 
+Reset all buttons
+text = "Mango"
+color = "orange"
+Apply style
+Update text
+ Why this approach is better
+Old way:
+buttons.forEach(btn => {
+  btn.addEventListener(...)
+});
+New way:
+container.addEventListener(...)
+Advantages:
+ 1. Less code
+
+One listener instead of many
+
+ 2. Works for future elements
+
+If you add new buttons later → still works
+
+ 3. More scalable
+
+Used in real apps

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessing html elements </title>
+</head>
+<body>
+
+<!-- ACCESSING THE ELEMENTS  -->
+
+
+   <h1 id="i1">WE ARE GETTING  STARTED ! </h1>
+   <!-- here we are gonna use all the selectors to access the html elements and manipulate them using js -->
+    <h1 id="i2">WE ARE GETTING  STARTED ! </h1>
+    <p class="p1">This is a paragraph.</p>
+    <p class="p1">This is a paragraph.</p>
+    <p class="p1">This is a paragraph.</p>
+    <img id="myimg" src="https://img.freepik.com/free-photo/closeup-scarlet-macaw-from-side-view-scarlet-macaw-closeup-head_488145-3540.jpg?semt=ais_rp_50_assets&w=740&q=80" alt="" width=20% height="200">    
+
+
+    <button id="btn" onclick="changecolor()">click me </button>
+
+<script>
+
+
+        function changecolor() {
+   let n= document.getElementById("i1")
+   n.style.color="green";
+   n.innerHTML="The text color is changed ! "
+   let m=document.querySelectorAll(".p1");
+  m.textContent="HI it is working smoothly ! " ;
+  m.style.fontSize="3rem";
+  m.style.color="crimson"
+  
+
+   let g=document.getElementById("myimg");
+  g.src="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE="
+
+}
+
+
+// if you use getElementById() method it will return the first element with the specified id and if there are multiple elements with the same id it will only access the first one and ignore the rest. so in our case we have two h1 tags with the same id "i1" but only the first one will be accessed and manipulated by js and the second one will remain unchanged. this is why it is important to use unique ids for each element in html to avoid confusion and ensure that js can access and manipulate the correct elements.
+// but if you selected bytag name like img  it will select the collection and not just one element , so that byclassname and  queryselectorall will do , so in that case you will need to specify the index 
+
+// Alternative methods you could use:
+
+// Using querySelector (recommended for single elements):
+
+// javascript
+// let g = document.querySelector("img");
+// g.src = "your-image-url.jpg";
+// Using getElementById (if you add an ID to your image):
+
+// <img id="myImage" src="..." alt="" width=20% height="200">
+// javascript
+// let g = document.getElementById("myImage");
+// g.src = "your-image-url.jpg";
+// Using querySelectorAll (similar to getElementsByTagName):
+// javascript
+// let g = document.querySelectorAll("img")[0];
+// g.src = "your-image-url.jpg";
+
+
+// for instance 
+function changeAll(){
+
+    let elements = document.querySelectorAll(".demo");
+
+    elements[0].style.color = "red";
+    elements[1].style.color = "blue";
+    elements[2].style.color = "green";
+}
+
+
+// accessing or changing the content of an element 
+document.getElementById("p1").innerHTML = "New text!";
+
+// Changing an Attribute
+// To change the value of an HTML attribute, use this syntax:
+
+document.getElementById(id).attribute = new value
+// e.g 
+document.getElementById("myImage").src = "landscape.jpg";
+// Dynamic HTML content
+
+document.getElementById("demo").innerHTML = "Date : " + Date();
+
+// Changing HTML Style
+document.getElementById(id).style.property= new style
+document.getElementById("p2").style.color = "blue";
+
+</script>
+
+
+</body>
+</html>

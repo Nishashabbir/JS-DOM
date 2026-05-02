@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Practice</title>
+  <style>
+    .btn {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    .active {
+      background: lightgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="output">Click a button</h2>
+
+  <div id="container">
+    <button class="btn">Apple</button>
+    <button class="btn">Banana</button>
+    <button class="btn">Mango</button>
+  </div>
+
+  <script>
+    const output = document.getElementById("output");
+    const buttons = document.querySelectorAll(".btn");
+    // selects ALL elements with class .btn
+
+// whenever any button is clicked that one active css will be applied on it 
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", function (e) {
+// addEventListener
+//  “Listen for an event”
+// "click" = event type
+// e is an object of event type , it has the information stored in it 
+// function = what to do when clicked
+        // 1. reset all buttons
+        buttons.forEach(b => b.classList.remove("active")); 
+        // here with classList we are dynamically adding a class to the button 
+
+        // 2. highlight clicked button
+        e.target.classList.add("active");
+
+        // 3. show clicked value
+        output.innerText = "You clicked: " + e.target.innerText;
+
+        // 4. debug event object
+        console.log("EVENT:", e);
+      });
+    });
+  </script>
+
+</body>
+</html>

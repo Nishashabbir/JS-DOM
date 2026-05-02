@@ -1,0 +1,120 @@
+
+<!-- learning  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit , minmax(220px , 1fr));
+    /* this is the most important line for the layout which adjusts the element according to the space , so that they don't get dangling  */
+     /* Each card column must be at least 220px
+But can grow up to 1 fraction of available space */
+/* If screen is wide → cards stretch evenly
+If screen is small → cards shrink but never below 220px 
+auto-fit
+This means:
+Grid automatically decides how many cards fit in a row
+No need to manually set width or media queries */
+    gap: 20px;
+    margin-top: 30px;
+}
+.card {
+   
+padding: 12px;
+background-color: white;
+box-shadow: 0 5px 15px rgb(169, 168, 168);
+text-align: center;
+transition: 0.2s;
+}
+.card img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+    }
+    .card h3{
+font-style: oblique;
+ margin: 10px 0;
+
+    }
+    .card p{
+        font-size: 15px;
+    }
+  .card button{
+       padding: 8px 12px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+  }
+.card:hover{
+    transform: translateY(-5px);
+    /* transform: scale(1); */
+}
+    </style>
+</head>
+<body>
+    
+    <div id="cards">
+        
+    </div>
+
+<script>
+const products=[ {
+    id : 1 , 
+    title : "Smart watches " , 
+    price : 1000, 
+    image : "image.png"
+},
+
+ {
+        id: 2,
+        title: "Smart Watch",
+        price: 3200,
+        image: "smartwatch.webp"
+      },
+      {
+        id: 3,
+        title: "Bluetooth Speaker",
+        price: 2800,
+        image: "speakers.jpg"
+      },
+      {
+        id: 4,
+        title: "Gaming Mouse",
+        price: 1500,
+        image: "gamingmouse.webp"
+      }
+]
+const container=document.getElementById("cards")
+
+function renderproducts(){
+   let  html=" "
+products.forEach(product => {
+    html+= `<div class="card">
+    <img src="${product.image}" alt="">
+    <h1>${product.title} </h1>
+    <p>${product.price}</p>
+    <button>Add to cart </button>
+</div>`
+    
+});
+
+
+ container.innerHTML=html; 
+
+
+}
+
+renderproducts()
+
+
+
+</script>
+
+</body>
+</html>
