@@ -68,6 +68,33 @@
       color: white;
       cursor: pointer;
     }
+
+    /* Button animation */
+.card button {
+  padding: 10px 15px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.card button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* Click animation */
+.card button:active {
+  transform: scale(0.9);
+}
+
+/* Added state */
+.card button.added {
+  background: green;
+}
   </style>
 </head>
 
@@ -80,8 +107,7 @@
 
     <h1>Our Products </h1>
 
-    <div class="cart"> cart: <span id="cart-count">0</span></div>
-
+<div class="cart"> 🛒 Cart: <span id="cart-count">0</span></div>
   </div>
 
   <div id="product-container" class="grid"></div>
@@ -118,6 +144,7 @@ let cart=[]
 </div>`
 });
 container.innerHTML=html;
+// innerText will write the plain text like div , and the whole code as text , so we will use innerHtml here 
     }
       // we have made the product listing 
       // now on clicking the add to cart button ,only that product should be added , and count should be increased , so where should we collect the selected products , a cart 
@@ -127,13 +154,33 @@ function updateCartUI(){
 }
 
 container.addEventListener("click" , function (e) {
-  if (e.target.classList.contains("add-to-cart")){
+  if (e.target.classList.contains("add-to-cart")){ 
+    // contains is the method of classList
     //  clicking the button , two things should happen that product should be added to cart through the id of that product and then the cart count , the ui should be updated 
   
     let id=e.target.getAttribute("data-id");
-    const product = products.find(p=> p.id=id)//it returns the product that matches with the id of product throught this p arrow functions that returns true or false and then with this find() method finds the products 
+    const product = products.find(p=> p.id==id)//it returns the product that matches with the id of product throught this p arrow functions that returns true or false and then with this find() method finds the products 
+  //  we compare the product in products list and the product which is clicked 
     cart.push(product)
     updateCartUI()
+    // Button animation
+const btn = e.target;
+btn.classList.add("added");
+btn.innerText = "Added ✔";
+
+// Optional: disable button after click
+btn.disabled = true; 
+// disabled is the property of button , it becomes unclickable when turned green 
+
+// Reset after 1.5 seconds
+setTimeout(() => {
+  // reset properties of button 
+  btn.classList.remove("added"); 
+  btn.innerText = "Add to Cart";
+  btn.disabled = false; 
+  // now it becomes clickable again after 1.5 seconds
+}, 1500);
+
 
     console.log("Event: " , e)
   }

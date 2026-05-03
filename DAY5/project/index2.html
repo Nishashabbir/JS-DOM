@@ -1,0 +1,239 @@
+
+<!-- i am practising again this by myself  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+
+        body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      display: flex;
+      gap: 30px;
+    }
+
+    .left {
+      flex: 2;
+    }
+
+    .right {
+      flex: 1;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      height: fit-content;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+    }
+
+    .card button {
+      margin-top: 10px;
+      padding: 6px 10px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .cart-item button {
+      margin-top: 5px;
+      background: crimson;
+      border: none;
+      color: white;
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+
+    .total {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    
+<!-- we have to get the items from database , render them and then cart , render them , total value in the cart ui , product price as well as quantity  in total elements , push in the cart but if existing then just increase the quantity dynamically   -->
+<div class="left">
+    <h1>our products </h1>
+    <div id="product-container" class="grid"></div>
+</div>
+
+<div class="right">
+    <h1>cart</h1>
+    <div id="cart-container"> </div>
+    <div class="total"> Total Price : <span id="total">0</span></div>
+</div>
+
+
+
+
+
+ </div>
+
+<script>
+
+const container = document.getElementById("product-container");
+const cartContainer=document.getElementById("cart-container")
+const totalPrice = document.getElementById("total")
+
+
+
+
+const products=[// fixed database 
+      { id: 1, title: "Wireless Headphones", price: 4500, image: "image.png" },
+      { id: 2, title: "Smart Watch", price: 3200, image: "smartwatch.webp" },
+      { id: 3, title: "Bluetooth Speaker", price: 2800, image: "speakers.jpg" },
+      { id: 4, title: "Gaming Mouse", price: 1500, image: "gamingmouse.webp" }
+    ]
+
+    let cart=[] //will be added later on according to user 
+
+
+function renderProducts(){
+
+ let html=" " 
+products.forEach(product=> {
+html+= `
+<div class="card">
+    <img src="${product.image}" alt="">
+    <h3>${product.title$}</h3>
+    <p>${product.price}</p>
+    <button class="add-to-cart" data-id="${product.id}">Add to the cart </button>
+</div>`
+    
+});
+
+container.innerHTML=html ;
+
+
+}
+
+
+
+
+// second function for cartUI 
+
+function renderCart(){
+  let   html=" " ;
+
+cart.forEach(c => {
+      html+= `
+<!-- cart ui  -->
+ <div class="card">
+<h3>${c.title }</h3>
+<p>${c.price}</p>
+<p> Quantity is : ${c.quantity}</p>   
+
+<button class="remove" data-id="${c.id}"> remove from cart </button>
+
+</div>
+ `
+    
+});
+
+cartContainer.innerHTML=html ; 
+
+const total = cart.reduce((sum , items)=>{
+    return sum += items.price* items.quantity
+} , 0)    
+totalPrice.innerText= total;
+
+
+}
+
+function addtoCart(id){
+        const product = products.find((p)=>p.id==id) //these are now the selected products , but they can be selected again and again 
+        const existing = cart.find((item)=> item.id==id);
+        if (existing){
+            existing.quantity++
+        }
+        else{
+            cart.push({...product , quantity:1}); //otherwise we will send the whole product info to the cart , one extra information as quantity 
+        }
+
+        
+
+        renderCart()
+
+}
+
+
+
+// event delegation when product is clicked , send that product to another function add to cart 
+container.addEventListener("click" , function (e){
+  if  ( e.target.classList.contains("add-to-cart")){
+      const id=e.target.dataset.id
+    //   when the button is clicked , do two things , add the product to cart and also display  the product 
+         addtoCart(id )
+  }
+
+})
+
+cartContainer.addEventListener("click" , function(e){
+    if (e.target.classList.contains("remove")){
+        const id = e.target.dataset.id;
+
+        cart = cart.filter(item => item.id != id);
+        // it filters through all the items and retain only that products whose id is not matched with the remove id , so array resets 
+renderCart()
+    }
+});
+
+
+// now initialize everything 
+
+renderProducts()
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
