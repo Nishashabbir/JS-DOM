@@ -134,3 +134,14 @@ const total = cart.reduce((sum, item) => {
 
 //  It’s the same thing repeated in different pla
  
+
+// now we will learn the use of the  filter property which is used to filter the data from the array
+
+// const result = array.filter((item) => {
+//   return condition;
+// });
+
+// for example : 
+const numbers = [1, 2, 3, 4, 5];
+
+const evenNumbers = numbers.filter(num => num % 2 === 0);
