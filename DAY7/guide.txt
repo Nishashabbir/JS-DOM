@@ -1,0 +1,223 @@
+The proper sequence is:
+
+Synchronous code
+Asynchronous code
+Callbacks
+Callback hell
+Promises
+async/await
+
+You were still between callbacks and callback hell, and I suddenly introduced await.
+
+So let’s fix the sequence properly.
+First understand the REAL problem
+JavaScript runs line by line.
+
+Example:
+
+console.log("A");
+console.log("B");
+console.log("C");
+
+Output:
+
+A
+B
+C
+
+Simple.
+
+But some tasks take time
+
+Example:
+
+downloading data
+reading a file
+talking to database
+API requests
+
+These are called asynchronous tasks.
+
+JavaScript does NOT stop everything and wait.
+
+Instead:
+
+“Start the task, continue other work, and tell me when done.”
+
+Example of async behavior
+console.log("Start");
+
+setTimeout(function() {
+  console.log("Hello after 2 seconds");
+}, 2000);
+
+console.log("End");
+
+Output:
+
+Start
+End
+Hello after 2 seconds
+
+Notice:
+
+setTimeout did NOT block the program.
+
+So how does JS know WHEN the task finishes?
+
+Using callbacks.
+
+setTimeout(function() {
+  console.log("Done");
+}, 2000);
+
+This function:
+
+function() {
+  console.log("Done");
+}
+
+is the callback.
+
+Meaning:
+
+“Run this later.”
+
+Then callback hell appears
+
+When async tasks depend on previous async tasks.
+
+Example:
+
+getUser(function(user) {
+
+  getOrders(user.id, function(orders) {
+
+    getOrderDetails(orders[0], function(details) {
+
+      console.log(details);
+
+    });
+
+  });
+
+});
+
+Each step waits for previous step.
+
+So nesting grows.
+
+That’s callback hell.
+
+NOW comes the next evolution: Promises
+
+Developers got tired of deep nesting.
+
+So JavaScript introduced:
+
+Promise
+
+A Promise is basically:
+
+“I promise to give you a value later.”
+
+Instead of:
+
+getUser(function(user) {
+
+});
+
+you can do:
+
+getUser()
+  .then(function(user) {
+
+  });
+
+Cleaner.
+
+THEN comes await
+
+Now finally we can talk about it properly.
+
+await is built on top of Promises.
+
+It makes async code LOOK synchronous.
+
+What await does
+
+This:
+
+const user = await getUser();
+
+means:
+
+“Pause THIS function until getUser() finishes.”
+
+Not the whole program.
+Only that async function pauses.
+
+Important rule
+
+You can ONLY use await inside an async function.
+
+Example:
+
+async function loadData() {
+
+  const user = await getUser();
+
+  console.log(user);
+
+}
+Compare all 3 generations
+1. Callback style
+getUser(function(user) {
+  console.log(user);
+});
+2. Promise style
+getUser()
+  .then(function(user) {
+    console.log(user);
+  });
+3. async/await style
+async function run() {
+
+  const user = await getUser();
+
+  console.log(user);
+
+}
+Why developers love await
+
+Because it removes pyramid structure.
+
+Instead of:
+
+getUser(function(user) {
+  getOrders(user.id, function(orders) {
+    getDetails(orders[0], function(details) {
+
+    });
+  });
+});
+
+You write:
+
+const user = await getUser();
+
+const orders = await getOrders(user.id);
+
+const details = await getDetails(orders[0]);
+
+Flat.
+Readable.
+Easy to debug.
+
+MOST IMPORTANT CONCEPT
+
+await does NOT magically make things synchronous.
+
+The task is STILL asynchronous.
+
+await only makes the code LOOK cleaner and easier to wri

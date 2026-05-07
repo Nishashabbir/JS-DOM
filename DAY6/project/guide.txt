@@ -1,0 +1,13 @@
+
+in this project to learn : 
+
+
+Before:
+You were manually updating UI pieces
+
+Now:
+You update STATE → ONE render function updates everything
+
+This is called:
+
+Centralized Render System

@@ -67,6 +67,8 @@ let cart=[]
     
 const cartContainer=document.getElementById("cart-container")
 const total= document.getElementById("total-price");
+
+
     function renderProducts(){
         let html=" " ;
         products.forEach(product=> {
@@ -81,10 +83,9 @@ const total= document.getElementById("total-price");
         });
 
         Container.innerHTML=html;
-
-
     }
 
+    
     renderProducts()
 
     // now render these products as well as  render the products that are added to the cart 
