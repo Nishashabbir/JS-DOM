@@ -163,7 +163,6 @@
 
 
 
-
 // here is another one 
 
 // function downloadfile(callback){
@@ -182,6 +181,7 @@
 // })
 
 
+
 // js is not waiting for anything : What is actually doing the waiting?
 // NOT JavaScript.
 // It is:
@@ -192,23 +192,10 @@
 // “Hey system, go do this work. Tell me when done.”
 
 
-// NOW comes the next evolution: Promises Developers got tired of deep nesting.
-// So JavaScript introduced:
-// Promise
-// A Promise is basically:
-// “I promise to give you a value later.
-// Instead of:
 
-// getUser(function(user) {
 
-// });
-// // you can do:
 
-// getUser()
-//   .then(function(user) {
 
-//   });
-// Cleaner.
 
 
 

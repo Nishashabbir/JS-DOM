@@ -191,7 +191,6 @@ async function run() {
 Why developers love await
 
 Because it removes pyramid structure.
-
 Instead of:
 
 getUser(function(user) {
@@ -220,4 +219,127 @@ await does NOT magically make things synchronous.
 
 The task is STILL asynchronous.
 
-await only makes the code LOOK cleaner and easier to wri
+await only makes the code LOOK cleaner and easier to write
+What is an async task?
+
+An async task is something that takes time:
+
+fetching data from server
+reading a file
+waiting 2 seconds
+database query
+JavaScript says:
+“I’ll continue running other code while this task finishes.”
+
+///////////////////////////////////
+promises 
+Promise style
+getUser()
+  .then(function(user) {
+    console.log(user);
+  });
+
+Now:
+
+getUser() immediately returns a Promise object
+YOU control what happens next using .then()
+
+This is a cleaner contract.
+
+3. Your confusion:
+“But .then(function(){}) is ALSO a callback!”
+
+YES.
+100% correct.
+
+.then() STILL receives a callback function.
+
+So promises did NOT remove callbacks completely.
+
+This is VERY important.
+
+Promises are actually:
+
+A better system BUILT ON callbacks
+4. Then what problem did Promise solve?
+
+The problem was NOT:
+❌ “waiting”
+
+The problem was:
+❌ nested pyramid structure
+❌ messy error handling
+❌ losing control
+❌ callback chaos
+
+5. Compare carefully
+Callback nesting
+getUser(function(user) {
+
+  getOrders(user.id, function(orders) {
+
+    getDetails(orders[0], function(details) {
+
+      console.log(details);
+
+    });
+
+  });
+
+});
+
+Notice:
+Every next step is INSIDE previous step.
+
+This creates the “pyramid”.
+
+6. Promise chaining
+getUser()
+  .then(function(user) {
+    return getOrders(user.id);
+  })
+  .then(function(orders) {
+    return getDetails(orders[0]);
+  })
+  .then(function(details) {
+    console.log(details);
+  });
+
+Now each step is separated.
+No pyramid.
+That’s the big improvement.
+
+7. MOST IMPORTANT MAGIC
+This line:
+return getOrders(user.id);
+is the entire magic of promises.
+Why?
+Because:
+If you return a Promise from .then(),
+the NEXT .then() waits automatically.
+Callbacks could not do this naturally.
+8. Let’s understand Promise creation VERY slowly
+
+You asked:
+“why resolve reject?”
+Good.
+9. Promise syntax
+const p = new Promise(function(resolve, reject) {
+
+});
+When you create a Promise:
+JavaScript gives you TWO functions automatically:
+resolve -> success
+reject  -> failure
+
+You don’t create them yourself.
+JavaScript gives them to you.
+
+
+
+
+
+
+
+
+

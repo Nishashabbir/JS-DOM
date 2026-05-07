@@ -18,6 +18,52 @@
 // }
 
 
+
+// function type : arrow function  , anonymous functions 
+
+// Does arrow function auto-return here?
+// This version:
+// user => getOrders(user.id)
+// is a short arrow function.
+// It automatically returns the expression.
+// So this:
+
+// user => getOrders(user.id)
+// is equivalent to:
+
+// function(user) {
+//   return getOrders(user.id);
+// }
+// But ONLY when there are no {} braces.
+// Auto return:
+// x => x * 2
+// same as:
+// function(x) {
+//   return x * 2;
+// }
+// NO auto return with braces:
+// x => {
+//   x * 2;
+// }
+// returns undefined.
+
+// You must write:
+
+// x => {
+//   return x * 2;
+// }
+
+// That kind of function is called an anonymous function.
+// Example from your code:
+// .then(function(user) {
+//   return getOrders(user.id);
+// })
+// This means:
+// “When the previous promise finishes, run this function and give its result as user.”
+// So .then() is calling the function for you later.
+// You are only passing/creating the function here — not manually calling it yourself.
+
+
 // // using js objects to store and manipulate data
 
 // let person = {
