@@ -13,12 +13,12 @@
 
 // greet("nisha")
 
-// another function 
-// function processUser(callback){
-//     console.log("processing the user ")
-//     username="alia"
-//     callback(username)
-// }
+////another function 
+function processUser(callback){
+    console.log("processing the user ")
+    username="alia"
+    callback(username)
+}
 
 // processUser(greet) //we just passed a function to another function 
 
@@ -29,17 +29,17 @@
 // synchronous callbacks run immediately and sequence by sequence means it will not run the second until the first one is executed 
 
 
-// [1,2,3,4,5].forEach(element => {
-//     console.log(element)
+[1,2,3,4,5].forEach(element => {
+    console.log(element)
     
-// });
+});
 
-// setTimeout(() => {//this is asynchronous , for this function js won't wait for 1s , it will keep executing the code after this and will handover the browser to callback 
+setTimeout(() => {//this is asynchronous , for this function js won't wait for 1s , it will keep executing the code after this and will handover the browser to callback 
     
-//    [1,2,3,4,5].forEach(element => {
-//     console.log(element)
+   [1,2,3,4,5].forEach(element => {
+    console.log(element)
     
-// });
+});
 // console.log("sorry for late , js didn't prioritize me ")
 // }, 1000);
 // //e.g the code after this will keep running 
@@ -56,33 +56,33 @@
 // this happens When async tasks depend on previous async tasks.
 
 
-// function step1(callback){
-//   setTimeout(() => {
-//     console.log("step1 is done ! ")
-//     callback()
-//   }, 1000);
-// }
-// function step2(callback){
-//   setTimeout(() => {
-//     console.log("step2 is done ! ")
-//     callback()
-//   }, 1000);
-// }
-// function step3(callback){
-//   setTimeout(() => {
-//     console.log("step3 is done ! ")
-//     callback()
-//   }, 1000);
-// }
+function step1(callback){
+  setTimeout(() => {
+    console.log("step1 is done ! ")
+    callback()
+  }, 1000);
+}
+function step2(callback){
+  setTimeout(() => {
+    console.log("step2 is done ! ")
+    callback()
+  }, 1000);
+}
+function step3(callback){
+  setTimeout(() => {
+    console.log("step3 is done ! ")
+    callback()
+  }, 1000);
+}
 
 
-// step1(function (){
-//     step2( function (){
-//         step3(function (){
-//             console.log("all is done!")
-//         })
-//     })
-// })
+step1(function (){
+    step2( function (){
+        step3(function (){
+            console.log("all is done!")
+        })
+    })
+})
 
 // We call it: “Pyramid of Doom”
 
@@ -105,19 +105,35 @@
 // async/await
 // So this:
 
-// getUser(function(user) {
-//   getOrders(user.id, function(orders) {
-//     getOrderDetails(orders[0], function(details) {
-//       console.log(details);
-//     });
-//   });
-// });
+getUser(function(user) {
+  getOrders(user.id, function(orders) {
+    getOrderDetails(orders[0], function(details) {
+      console.log(details);
+    });
+  });
+});
+
+
+// its promise version 
+getUser()
+  .then(user => {
+    return getOrders(user.id);
+  })
+  .then(orders => {
+    return getOrderDetails(orders[0]);
+  })
+  .then(details => {
+    console.log(details);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 // // became:
 
-// const user = await getUser();
-// const orders = await getOrders(user.id);
-// const details = await getOrderDetails(orders[0]);
+const user = await getUser();
+const orders = await getOrders(user.id);
+const details = await getOrderDetails(orders[0]);
 
 // console.log(details);
 
@@ -165,20 +181,20 @@
 
 // here is another one 
 
-// function downloadfile(callback){
-// setTimeout(() => {
-//     console.log("the file is getting downloaded , please wait ")
+function downloadfile(callback){
+setTimeout(() => {
+    console.log("the file is getting downloaded , please wait ")
     
-//     callback()
-// }, 2000);
+    callback()
+}, 2000);
 
-// callback() //if we call this outside the setitme out which is async , then this is no more a callback , this is a logical error as we are separtely calling it 
+callback() //if we call this outside the setitme out which is async , then this is no more a callback , this is a logical error as we are separtely calling it 
 
-// }
+}
 
-// downloadfile(()=>{
-//     console.log("finally its downloaded ")
-// })
+downloadfile(()=>{
+    console.log("finally its downloaded ")
+})
 
 
 
@@ -190,9 +206,6 @@
 // OS (for file/network I/O)
 // JS just says:
 // “Hey system, go do this work. Tell me when done.”
-
-
-
 
 
 

@@ -52,10 +52,10 @@
 
 // basic string methods 
 
-Basic String Methods
-Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
+// Basic String Methods
+// Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
 
-// String length
+// // String length
 // String charAt()
 // String charCodeAt()
 // String codePointAt()
