@@ -34,12 +34,14 @@ function processUser(callback){
     
 });
 
-setTimeout(() => {//this is asynchronous , for this function js won't wait for 1s , it will keep executing the code after this and will handover the browser to callback 
-    
-   [1,2,3,4,5].forEach(element => {
+
+    setTimeout(() => {    //this is asynchronous , for this function js won't wait for 1s , it will keep executing the code after this and will handover the browser to callback 
+
+        [1,2,3,4,5].forEach(element => {
     console.log(element)
+    }, 3000);
     
-});
+
 // console.log("sorry for late , js didn't prioritize me ")
 // }, 1000);
 // //e.g the code after this will keep running 

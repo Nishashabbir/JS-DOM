@@ -330,3 +330,73 @@ getUser()
 // wait if promise returned
 // ↓
 // continue chain
+
+// 1. Promise.all()////////////////////////
+
+// Runs all promises together.
+
+// Promise.all([
+//   fetchUser(),
+//   fetchPosts(),
+//   fetchComments()
+// ])
+// .then(data => {
+//   console.log(data);
+// });
+// Returns:
+// [
+//   user,
+//   posts,
+//   comments
+// ]
+//  IMPORTANT
+
+// If ONE fails:
+//  entire Promise.all fails.
+///////////////////////////
+// 2. Promise.allSettled()
+
+// Waits for ALL promises.
+
+// Even failed ones.
+
+Promise.allSettled([
+  promise1,
+  promise2,
+  promise3
+]);
+
+// Useful for:
+
+// dashboards
+// multiple widgets
+// analytics systems
+// 3. Promise.race()
+
+// First completed promise wins.
+
+Promise.race([
+  slowAPI(),
+  fastAPI()
+]);
+
+// Used in:
+
+// timeouts
+// fastest server selection
+// 4. Promise.any()
+
+// First SUCCESS wins.
+
+// Ignores failures unless all fail.
+
+
+// SUPER IMPORTANT INTERNAL TRUTH
+
+// This:
+
+// await fetchData()
+
+// is basically sugar for:
+
+// fetchData().then(...)
