@@ -92,6 +92,8 @@ delay(2000)
 
 
 
+  
+
 // fullfilled promise 
 
 Promise.resolve(5)
@@ -360,11 +362,11 @@ getUser()
 
 // Even failed ones.
 
-Promise.allSettled([
-  promise1,
-  promise2,
-  promise3
-]);
+// Promise.allSettled([
+//   promise1,
+//   promise2,
+//   promise3
+// ]);
 
 // Useful for:
 
@@ -375,10 +377,10 @@ Promise.allSettled([
 
 // First completed promise wins.
 
-Promise.race([
-  slowAPI(),
-  fastAPI()
-]);
+// Promise.race([
+//   slowAPI(),
+//   fastAPI()
+// ]);
 
 // Used in:
 
@@ -400,3 +402,24 @@ Promise.race([
 // is basically sugar for:
 
 // fetchData().then(...)
+
+
+function timeout(){
+  return new Promise((_, reject)=>{
+    setTimeout(() => {
+      reject("TimeOut")
+      
+    }, 2000);
+  })
+}
+
+function fetchData(){
+  return new Promise((_, resolve)=>{
+    setTimeout(() => {
+      reject("Data Recieved ")
+      
+    }, 5000);
+  })
+}
+
+Promise.race([timeout() , fetchData()])

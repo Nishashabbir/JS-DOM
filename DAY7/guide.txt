@@ -7,11 +7,7 @@ Callback hell
 Promises
 async/await
 
-You were still between callbacks and callback hell, and I suddenly introduced await.
 
-So let’s fix the sequence properly.
-First understand the REAL problem
-JavaScript runs line by line.
 
 Example:
 
@@ -110,15 +106,12 @@ So nesting grows.
 That’s callback hell.
 
 NOW comes the next evolution: Promises
-
 Developers got tired of deep nesting.
-
 So JavaScript introduced:
 
 Promise
 
 A Promise is basically:
-
 “I promise to give you a value later.”
 
 Instead of:
@@ -202,11 +195,8 @@ getUser(function(user) {
 });
 
 You write:
-
 const user = await getUser();
-
 const orders = await getOrders(user.id);
-
 const details = await getDetails(orders[0]);
 
 Flat.
@@ -214,9 +204,7 @@ Readable.
 Easy to debug.
 
 MOST IMPORTANT CONCEPT
-
 await does NOT magically make things synchronous.
-
 The task is STILL asynchronous.
 
 await only makes the code LOOK cleaner and easier to write
@@ -387,13 +375,10 @@ while:
 arr
 date
 user
-
 → YOUR variables
-
  SECOND QUESTION — VERY IMPORTANT
 
 You asked:
-
 “after fetchData we didn’t pass data function inside it”
 
 YES.
