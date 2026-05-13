@@ -1,6 +1,13 @@
 
 // ASYNC AWAIT  guidelines are there in guide.txt
+
+
+// Promise = future value
+// await = wait for future value
+// async = allows await inside function (pay thanks to such functions who are letting us wait and then execute the next code unlike js attitude  , bro i am not gonna wait at all , i am just going to execute this )
 // before we had this way : 
+
+
 
 function test(){
     return new Promise((resolve)=>{
