@@ -82,7 +82,7 @@ This:
 
 reads the body
 parses JSON
-returns ANOTHER Promise
+returns ANOTHER Promise****************** point to be noted 
 
 So:
 

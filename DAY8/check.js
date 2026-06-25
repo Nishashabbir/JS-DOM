@@ -1,5 +1,7 @@
 
 
+
+// fetch concept 
 // fetch returns a promise that needs to be awaited , and same json returns a promise that needs to be awaited 
 
 
@@ -90,9 +92,9 @@
 
 // using a resuable function for multiple requests 
 
-async function getjson(url){
-    return fetch(url).then((res)=>res.json())
-}
+// async function getjson(url){
+//     return fetch(url).then((res)=>res.json())
+// }
 
 // const final = await getjson("https://jsonplaceholder.typicode.com/users")
 // console.log(final)
@@ -103,42 +105,42 @@ async function getjson(url){
 
 // or you can create another function for that as well 
 
-async function loader() {
+// async function loader() {
     
-const [a , b , c ] = await Promise.all([ getjson("https://jsonplaceholder.typicode.com/users"),
-    getjson("https://jsonplaceholder.typicode.com/posts"),
-    getjson("https://jsonplaceholder.typicode.com/todos")])
+// const [a , b , c ] = await Promise.all([ getjson("https://jsonplaceholder.typicode.com/users"),
+//     getjson("https://jsonplaceholder.typicode.com/posts"),
+//     getjson("https://jsonplaceholder.typicode.com/todos")])
 
-    console.log(a )
-    console.log(b )
-    console.log(c )
-}
-loader() 
+//     console.log(a )
+//     console.log(b )
+//     console.log(c )
+// }
+// loader() 
 
 
-// promise.allsettled 
+// // promise.allsettled 
 
-// we use it for better version instead of promise.all as it will give us the result of all the promises even if some of them are rejected and we can handle them accordingly
+// // we use it for better version instead of promise.all as it will give us the result of all the promises even if some of them are rejected and we can handle them accordingly
 
-async function loader() {
-    const [a , b , c ] = await Promise.allSettled([ getjson("https://jsonplaceholder.typicode.com/users"),
-        getjson("https://jsonplaceholder.typicode.com/posts"),
-        getjson("https://jsonplaceholder.typicode.com/todos")])
-    }
+// async function loader() {
+//     const [a , b , c ] = await Promise.allSettled([ getjson("https://jsonplaceholder.typicode.com/users"),
+//         getjson("https://jsonplaceholder.typicode.com/posts"),
+//         getjson("https://jsonplaceholder.typicode.com/todos")])
+//     }
 
     // or instead of using multiple variables in list we can simply do this 
 
 
-async function loader() {
-    const result = await Promise.allSettled([ getjson("https://jsonplaceholder.typicode.com/users"),
-        getjson("https://jsonplaceholder.typicode.com/posts"),
-        getjson("https://jsonplaceholder.typicode.com/todos")])
-        console.log(result)
-    }
-    // get one result one by one 
-    console.log(result[0].value) //gives the value of first promise
-    console.log(result[1].value) //gives the value of second promise
-    console.log(result[2].value) //gives the value of third promise  
+// async function loader() {
+//     const result = await Promise.allSettled([ getjson("https://jsonplaceholder.typicode.com/users"),
+//         getjson("https://jsonplaceholder.typicode.com/posts"),
+//         getjson("https://jsonplaceholder.typicode.com/todos")])
+//         console.log(result)
+//     }
+//     // get one result one by one 
+//     console.log(result[0].value) //gives the value of first promise
+//     console.log(result[1].value) //gives the value of second promise
+//     console.log(result[2].value) //gives the value of third promise  
     
 
     // return only fullfilled status 
@@ -190,3 +192,5 @@ async function loader() {
 //     });
 
 // }
+
+

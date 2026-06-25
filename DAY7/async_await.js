@@ -56,11 +56,11 @@ async function fetchdata(){
      setTimeout(() => {
         console.log("data fetching")
      }, 2000);
-
+//here we are not returning a promise so it will not wait for the data fetching to be printed out , rather it will print out "the data has been fetched" first and then "data fetching" after 2 seconds
 }
 
 async function getdata(){
-    x= await fetchdata()
+    x= await fetchdata() //here we are waiting for the fetchdata to be resolved but it will never be resolved as it is not returning a promise so it will not wait for the data fetching to be printed out , rather it will print out "the data has been fetched" first and then "data fetching" after 2 seconds
     console.log("the data has been fetched ")
 }
 
@@ -74,6 +74,7 @@ function fetchdata() {
     }, 2000);
 
     return Promise.resolve(undefined);
+    //as settimeout doesn't return a promise , so we will manually return a promise 
 }
 
 // Notice what happens:

@@ -61,7 +61,7 @@ setTimeout did NOT block the program.
 
 So how does JS know WHEN the task finishes?
 
-Using callbacks.
+Using callbacks.******************************************************
 
 setTimeout(function() {
   console.log("Done");
