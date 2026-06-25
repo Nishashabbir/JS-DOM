@@ -1,0 +1,82 @@
+
+
+
+The connection is not because setTimeout knows about getData(). It doesn't.
+
+The connection is because both getData() and setTimeout() are using the same controller object.
+
+Let's visualize it.
+
+const controller = new AbortController();
+
+This creates one object in memory.
+
+controller
+   |
+   +--> signal
+
+Now inside getData():
+
+fetch(url, {
+    signal: controller.signal
+});
+
+Here you're telling fetch:
+
+"Hey fetch, if this particular signal is ever aborted, stop the request."
+
+So internally, fetch keeps a reference to that signal.
+
+fetch
+   |
+   +-------> controller.signal
+
+Then later:
+
+setTimeout(() => {
+    controller.abort();
+}, 100);
+
+This doesn't search for a fetch or anything.
+
+It simply says:
+
+"Change the state of THIS controller."
+
+Internally it becomes something like:
+
+controller
+    aborted = true
+
+When abort() is called:
+
+controller.signal.aborted becomes true.
+The signal fires an "abort" event.
+Every fetch that is listening to that signal gets notified.
+Those fetches immediately reject with an AbortError.
+
+Think of it like this:
+
+Controller
+     │
+     ▼
+Signal
+   │
+   ├──── Fetch #1
+   ├──── Fetch #2
+   └──── Fetch #3
+
+When you do
+
+controller.abort();
+
+it's like pressing one emergency stop button.
+
+Controller
+     │
+     ▼
+Signal  ---> "STOP!"
+   │
+   ├──── Fetch #1 stops
+   ├──── Fetch #2 stops
+   └──── Fetch #3 stops
