@@ -1,6 +1,6 @@
 
 
-// note :  can you can use catch with both .then as well as try catch block?
+// note :  can you  use catch with both .then as well as try catch block?
 // the answer is yes you can use catch with both .then and try catch block but the way you use it is different
 
 // fetch()
@@ -10,12 +10,14 @@
 
 
 // fetch("https://jsonplaceholder.typicode.com/users")
-//     .then(console.log)
+//     .then(console.log)   //it automatically waits to resolve 
 
 // it gives you a response object 
 
 // you have to convert that into JSON but how ??
-// const response = await fetch("https://jsonplaceholder.typicode.com/users")
+// without await(pending) and with await (response)
+// const response = await fetch("https://jsonplaceholder.typicode.com/users") //better wrap it inside an async function as await is used only with that 
+// console.log(response)
 // const data = response.json() // this will be a wrong way to use .json as it will again return us the promise and not the data itself we can use it like this 
 // const data= response.then(res => res.json()) // this is the correct way to use .json() as it will return us the data in json format and not a promise
 // const data = await response.json() // this is also correct way to use .json() as it will return us the data in json format and not a promise
@@ -29,9 +31,9 @@
 
 // // simply use this 
 
-// const response= await fetch("https://jsonplaceholder.typicode.com/users")
-// const data= await response.json()
-// console.log(data ) // this will work because we are waiting for the fetch to complete and then we are waiting for the .json() to complete and then we are logging the data
+const response= await fetch("https://jsonplaceholder.typicode.com/users")
+const data= await response.json()
+console.log(data ) // this will work because we are waiting for the fetch to complete and then we are waiting for the .json() to complete and then we are logging the data
 
 // this is the correct way to use fetch and .json() together as we are waiting for both of them to complete before we log the data
 
@@ -362,71 +364,71 @@ async function getjson(url) {
 
 // return only fulfilled status and value 
 
-async  function loadall(){
- const result =  await Promise.allSettled([
- getjson("https://jsonplaceholder.typicode.com/users") ,
-    getjson("https://jsonplaceholder.typicode.com/posts") ,
-    getjson("https://jsonplaceholder.typicode.com/todos") , 
- ])
+// async  function loadall(){
+//  const result =  await Promise.allSettled([
+//  getjson("https://jsonplaceholder.typicode.com/users") ,
+//     getjson("https://jsonplaceholder.typicode.com/posts") ,
+//     getjson("https://jsonplaceholder.typicode.com/todos") , 
+//  ])
 
 
- for (let r in result){
-  if (result[r].status==="fulfilled"){
-    console.log("Status is fulfilled ")
-    console.log(result[r]) //it will return a huge output 
-    console.log(result[r].status)
-    console.log(result[r].value)
+//  for (let r in result){
+//   if (result[r].status==="fulfilled"){
+//     console.log("Status is fulfilled ")
+//     console.log(result[r]) //it will return a huge output 
+//     console.log(result[r].status)
+//     console.log(result[r].value)
 
-  }
-  else{
-    console.log("status not fulfilled")
-  }
- }
-
-
-}
-
-loadall()
+//   }
+//   else{
+//     console.log("status not fulfilled")
+//   }
+//  }
 
 
+// }
 
-// improved version could be using for each loop 
-
-function getjson(url) {
-    return fetch(url)
-        .then((res) => res.json());
-}
-
-async function loadDashboard() {
-
-    const results = await Promise.allSettled([
-
-        getjson("https://jsonplaceholder.typicode.com/users"),
-
-        getjson("https://jsonplaceholder.typicode.com/posts"),
-
-        getjson("https://jsonplaceholder.typicode.com/todos")
-
-    ]);
+// loadall()
 
 
 
-    results.forEach((result) => {
+// // improved version could be using for each loop 
 
-        if (result.status === "fulfilled") {
+// function getjson(url) {
+//     return fetch(url)
+//         .then((res) => res.json());
+// }
 
-            console.log("SUCCESS:");
-            console.log(result.value);
+// async function loadDashboard() {
 
-        } else {
+//     const results = await Promise.allSettled([
 
-            console.log("failed");
-            console.log(result.reason);
+//         getjson("https://jsonplaceholder.typicode.com/users"),
 
-        }
+//         getjson("https://jsonplaceholder.typicode.com/posts"),
 
-    });
+//         getjson("https://jsonplaceholder.typicode.com/todos")
 
-}
+//     ]);
 
-loadDashboard();
+
+
+//     results.forEach((result) => {
+
+//         if (result.status === "fulfilled") {
+
+//             console.log("SUCCESS:");
+//             console.log(result.value);
+
+//         } else {
+
+//             console.log("failed");
+//             console.log(result.reason);
+
+//         }
+
+//     });
+
+// }
+
+// loadDashboard();
