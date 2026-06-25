@@ -33,7 +33,7 @@ throw new Error("All requests failed ")
 // the correct way to use it is : 
 (async () => {
   try {
-    const data = await fetchWithRetry(
+    const data = await fetchWithRetry( 
       "https://jsonplaceholder.typicode.com/users",
       5
     );

@@ -188,9 +188,9 @@ console.log(data ) // this will work because we are waiting for the fetch to com
 //     const response = await fetch(url);
 
 //     if (!response.ok) {
-//       throw new Error("Request failed");
+//       throw new Error("Request failed"); //here new Error is used to create a new error object with the message "Request failed" and throw it to be caught in the catch block
 //     }
-
+//new keyword is used to create a new instance of the Error object with the specified message. It allows you to create custom error messages and throw them when certain conditions are not met. In this case, if the response is not ok (i.e., the request failed), we throw a new error with the message "Request failed".
 //     const data = await response.json();
 
 //     console.log(data);
@@ -291,6 +291,9 @@ console.log(data ) // this will work because we are waiting for the fetch to com
     
 //     // getjson(url1) // you can take the url of your choices 
 // ])
+
+
+// previoulsy we had called getjson and then stored in final and then logged it but now we are directly using it inside the promise.all and storing in a , b , c and then logging them so promise.all is equal to using await on each of the getjson function and then storing in a , b , c but the benefit is that all the requests will be initiated together and not one after another
 
 // // console.log(a.name) //this is wrong , cuz a is array of objects , you should write like this 
 // console.log(a[0].name)  //this gives the result 
