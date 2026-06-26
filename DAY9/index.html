@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub User Search</title>
+</head>
+<body>
+
+    <h2>GitHub User Search</h2>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Enter GitHub username">
+
+    <button id="btn">
+        Search
+    </button>
+
+    <div id="result"></div>
+
+    <script >
+
+const input = document.getElementById("search");
+const button = document.getElementById("btn");
+const result = document.getElementById("result");
+
+button.addEventListener("click", async () => {
+
+    const username = input.value.trim();  //here word input is built in javascript function which is used to get the value of input field and trim() is used to remove the white spaces from the start and end of the string
+
+    if (!username) {
+        result.innerHTML = "<p>Please enter a username.</p>";
+        return; //here why did we write return is because if the username is empty then we don't want to execute the rest of the code so we return from the function
+    }
+
+    try { //this will execute only when the username is not empty and the fetch request is successful and if username is empty , it will simply return from the function and not execute the rest of the code
+
+        const response = await fetch(
+            `https://api.github.com/users/${username}` //this api is used to get the user details from github and we are using it becuase github has a public api which we can use to get the user details and we are using template literals here to pass the username dynamically in the url
+        );
+
+        if (!response.ok) {
+            throw new Error("User not found");
+        }
+
+        const user = await response.json();
+
+        result.innerHTML = `
+            <img src="${user.avatar_url}" width="120"> 
+            <h3>${user.name}</h3>
+            <p>@${user.login}</p>
+            <p>Followers: ${user.followers}</p>
+            <p>Public Repositories: ${user.public_repos}</p>
+        `;
+
+    } catch (error) {
+
+        result.innerHTML = `<p>${error.message}</p>`;
+
+    }
+
+});
+    </script>
+
+</body>
+</html>
